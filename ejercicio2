@@ -1,0 +1,55 @@
+import java.util.*;
+
+public class GrafoLista {
+    protected Map<String, List<String>> listaAdyacencia;
+    
+    public GrafoLista() {
+        listaAdyacencia = new HashMap<>();
+    }
+    
+    public void agregarVertice(String vertice) {
+        if (!listaAdyacencia.containsKey(vertice)) {
+            listaAdyacencia.put(vertice, new ArrayList<>());
+        }
+    }
+    
+    public void agregarArista(String origen, String destino) {
+        if (!listaAdyacencia.containsKey(origen) || !listaAdyacencia.containsKey(destino)) {
+            System.out.println("Error: Vértice no encontrado");
+            return;
+        }
+        
+        listaAdyacencia.get(origen).add(destino);
+        listaAdyacencia.get(destino).add(origen); 
+    }
+    
+    public void mostrarGrafo() {
+        for (String vertice : listaAdyacencia.keySet()) {
+            System.out.print(vertice + " -> ");
+            List<String> adyacentes = listaAdyacencia.get(vertice);
+            for (String adyacente : adyacentes) {
+                System.out.print(adyacente + " ");
+            }
+            System.out.println();
+        }
+    }
+    
+    public static void main(String[] args) {
+        GrafoLista grafo = new GrafoLista();
+        
+        
+        grafo.agregarVertice("A");
+        grafo.agregarVertice("B");
+        grafo.agregarVertice("C");
+        grafo.agregarVertice("D");
+        
+        
+        grafo.agregarArista("A", "B");
+        grafo.agregarArista("A", "C");
+        grafo.agregarArista("B", "D");
+        
+    
+        System.out.println("Lista de Adyacencia:");
+        grafo.mostrarGrafo();
+    }
+}
