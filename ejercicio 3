@@ -1,0 +1,56 @@
+import java.util.*;
+
+public class GrafoBFS extends GrafoLista {
+    
+    public void bfs(String inicio) {
+        if (!listaAdyacencia.containsKey(inicio)) {
+            System.out.println("Vértice no encontrado");
+            return;
+        }
+        
+        Set<String> visitados = new HashSet<>();
+        Queue<String> cola = new LinkedList<>();
+        
+        cola.add(inicio);
+        visitados.add(inicio);
+        
+        System.out.println("Recorrido BFS desde " + inicio + ":");
+        
+        while (!cola.isEmpty()) {
+            String actual = cola.poll();
+            System.out.print(actual + " ");
+            
+            for (String vecino : listaAdyacencia.get(actual)) {
+                if (!visitados.contains(vecino)) {
+                    visitados.add(vecino);
+                    cola.add(vecino);
+                }
+            }
+        }
+        System.out.println();
+    }
+    
+    public static void main(String[] args) {
+        GrafoBFS grafo = new GrafoBFS();
+        
+        
+        grafo.agregarVertice("A");
+        grafo.agregarVertice("B");
+        grafo.agregarVertice("C");
+        grafo.agregarVertice("D");
+        grafo.agregarVertice("E");
+        
+   
+        grafo.agregarArista("A", "B");
+        grafo.agregarArista("A", "C");
+        grafo.agregarArista("B", "D");
+        grafo.agregarArista("C", "E");
+        
+        
+        System.out.println("Lista de Adyacencia:");
+        grafo.mostrarGrafo();
+        
+       
+        grafo.bfs("A");
+    }
+}
